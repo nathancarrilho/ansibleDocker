@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  connection: local
+  become: yes 
+  tasks:
+
+    - name: 'Instalando Docker'
+      apt:
+        name: docker
+        state: latest
+
+    - name: 'Clonar Repositorio'
+      shell: 'git clone https://github.com/nathancarrilho/desafiodocker.git'
+
+    - name: 'Alterando as permissões do repositório'
+      shell: 'chmod 777 desafiodocker'
+ 
+    - name: 'Fazendo o Build do Docker Compose e rodando a aplicação'
+      shell: 'docker-compose build && docker-compose up -d'
+      args:
+        chdir: /home/tec/projects/ansibleDocker/desafiodocker
